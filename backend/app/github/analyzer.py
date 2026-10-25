@@ -9,7 +9,7 @@ from urllib.parse import urlparse
 
 import httpx
 from githubkit import GitHub
-from githubkit.exception import GitHubError
+from githubkit.exception import GitHubException
 
 from ..core.config import get_settings
 from ..models.schemas import GitHubInput, ProjectInfo
@@ -226,7 +226,7 @@ class GitHubValidator:
                 "default_branch": repo.parsed_data.default_branch,
                 "languages_url": repo.parsed_data.languages_url,
             }
-        except GitHubError as e:
+        except GitHubException as e:
             return {
                 "valid": False,
                 "error": str(e),
