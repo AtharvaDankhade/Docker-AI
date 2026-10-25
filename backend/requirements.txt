@@ -6,7 +6,7 @@ pydantic-settings==2.5.2
 
 # HTTP & GitHub
 httpx==0.27.2
-githubkit==1.3.0
+githubkit==0.16.1
 
 # File processing
 python-multipart==0.0.12
