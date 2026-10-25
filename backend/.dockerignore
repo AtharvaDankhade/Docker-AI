@@ -1,0 +1,27 @@
+# Backend .dockerignore
+.git
+.gitignore
+README.md
+.env
+.env.local
+.env.example
+.venv
+__pycache__
+*.pyc
+.pytest_cache
+.coverage
+htmlcov
+.mypy_cache
+.ruff_cache
+*.log
+.DS_Store
+Thumbs.db
+.vscode
+.idea
+*.swp
+*.swo
+tests/
+*.md
+Dockerfile
+docker-compose.yml
+docker-compose.override.yml
