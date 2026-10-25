@@ -360,7 +360,7 @@ export function InputMethod({ onGitHubSubmit, onZipSubmit, loading, disabled }: 
                   </div>
                   <button
                     type="button"
-                    onClick={() => { setZipFile(null); setZipValidation(null); fileInputRef.current?.value = ''; }}
+                    onClick={() => { setZipFile(null); setZipValidation(null); if (fileInputRef.current) fileInputRef.current.value = ''; }}
                     className="text-slate-500 hover:text-red-400 p-1"
                     aria-label="Remove file"
                   >
