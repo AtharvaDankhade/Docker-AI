@@ -18,6 +18,7 @@ export default function HomePage() {
   const { health } = useHealthCheck(60000);
 
   const {
+    result: hookResult,
     loading,
     error,
     progress,
@@ -31,7 +32,6 @@ export default function HomePage() {
   const handleGitHubSubmit = useCallback(async (input: GitHubInput) => {
     try {
       await generateFromGitHub(input);
-      setResult(await generateFromGitHub(input));
       setShowResult(true);
       // Scroll to result
       setTimeout(() => {
@@ -45,7 +45,6 @@ export default function HomePage() {
   const handleZipSubmit = useCallback(async (input: ZipInput) => {
     try {
       await generateFromZip(input);
-      setResult(await generateFromZip(input));
       setShowResult(true);
       setTimeout(() => {
         document.getElementById('result-section')?.scrollIntoView({ behavior: 'smooth' });
@@ -199,14 +198,14 @@ export default function HomePage() {
           )}
 
           {/* Result Section */}
-          {showResult && result && (
+          {showResult && hookResult && (
             <section id="result-section" className="animate-slide-up">
               {/* Project Info */}
-              <ProjectInfoCard projectInfo={result.project_info} />
+              <ProjectInfoCard projectInfo={hookResult.project_info} />
               
               {/* Dockerfile Preview */}
               <div className="mt-8">
-                <DockerfilePreview result={result} className="h-[600px]" />
+                <DockerfilePreview result={hookResult} className="h-[600px]" />
               </div>
 
               {/* Actions */}
@@ -232,10 +231,10 @@ export default function HomePage() {
                     <CheckCircle2 className="w-4 h-4 text-docker-400" />
                     Ready to use
                   </span>
-                  {result.estimated_image_size_mb && (
+                  {hookResult.estimated_image_size_mb && (
                     <span className="flex items-center gap-1.5">
                       <Globe className="w-4 h-4 text-cyan-400" />
-                      ~{result.estimated_image_size_mb} MB
+                      ~{hookResult.estimated_image_size_mb} MB
                     </span>
                   )}
                 </div>
