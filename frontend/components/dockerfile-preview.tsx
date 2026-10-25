@@ -32,7 +32,8 @@ export function DockerfilePreview({ result, className }: DockerfilePreviewProps)
   const [showWarnings, setShowWarnings] = useState(false);
   const [showOptimizations, setShowOptimizations] = useState(true);
   const [showAISuggestions, setShowAISuggestions] = useState(true);
-  const editorRef = useRef<React.ComponentRef<typeof Editor>>(null);
+  // Editor ref not needed - Monaco Editor doesn't expose ref
+  const editorRef = useRef(null);
   const { copyToClipboard, downloadDockerfile, validateDockerfile, getDockerfileStats } = useDockerfileActions();
   
   const validationWarnings = result ? validateDockerfile(result.dockerfile) : [];
@@ -145,7 +146,6 @@ export function DockerfilePreview({ result, className }: DockerfilePreviewProps)
       {/* Editor */}
       <div className="flex-1 min-h-96 relative">
         <Editor
-          ref={editorRef}
           height="100%"
           defaultLanguage="dockerfile"
           value={result.dockerfile}
