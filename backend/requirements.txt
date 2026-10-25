@@ -13,7 +13,7 @@ python-multipart==0.0.12
 aiofiles==24.1.0
 
 # Zip handling
-patoolib==1.12
+patoolib==1.13
 
 # AI (Ollama) - optional, for optimization tips
 ollama==0.4.2
