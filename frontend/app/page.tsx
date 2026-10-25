@@ -2,7 +2,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { Loader2, Sparkles, Zap, Shield, Layers, Globe, CheckCircle2 } from 'lucide-react';
+import { Loader2, Sparkles, Zap, Shield, Layers, Globe, CheckCircle2, AlertCircle } from 'lucide-react';
 import { clsx } from 'clsx';
 import { AnimatedBackground } from '@/components/animated-background';
 import { InputMethod } from '@/components/input-method';
