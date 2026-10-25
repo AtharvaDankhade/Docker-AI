@@ -4,7 +4,7 @@ import shutil
 import tempfile
 from pathlib import Path
 from typing import Optional
-import patoolib
+import patool
 
 from ..models.schemas import ZipInput, ProjectInfo
 from ..detection import detect_project
@@ -37,7 +37,7 @@ class ZipAnalyzer:
             
             # Extract using patoolib (handles multiple formats)
             try:
-                patoolib.extract_archive(str(zip_path), outdir=str(extract_path))
+                patool.extract_archive(str(zip_path), outdir=str(extract_path))
             except Exception as e:
                 raise ValueError(f"Failed to extract archive: {e}")
             
@@ -82,7 +82,7 @@ class ZipValidator:
                 zip_path.write_bytes(zip_bytes)
                 
                 try:
-                    patoolib.extract_archive(str(zip_path), outdir=str(Path(tmpdir) / "test"))
+                    patool.extract_archive(str(zip_path), outdir=str(Path(tmpdir) / "test"))
                     return {
                         "valid": True,
                         "size_mb": size_mb,
