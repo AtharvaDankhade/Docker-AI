@@ -54,7 +54,7 @@ class LanguageDetector:
             Framework.VUE: [r'"vue"\s*:', r'"@vue/'],
             Framework.SVELTE: [r'"svelte"\s*:', r'"@sveltejs/'],
             Framework.ASTRO: [r'"astro"\s*:', r"astro"],
-            Framework.REMIX: [r'"@remix-run/', r"remix"],
+            Framework.REMI: [r'"@remix-run/', r"remix"],
             Framework.FASTIFY: [r'"fastify"\s*:', r"fastify"],
             Framework.KOA: [r'"koa"\s*:', r"koa"],
             Framework.HONO: [r'"hono"\s*:', r"hono"],
