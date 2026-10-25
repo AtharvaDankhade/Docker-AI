@@ -32,7 +32,7 @@ export function DockerfilePreview({ result, className }: DockerfilePreviewProps)
   const [showWarnings, setShowWarnings] = useState(false);
   const [showOptimizations, setShowOptimizations] = useState(true);
   const [showAISuggestions, setShowAISuggestions] = useState(true);
-  const editorRef = useRef<Editor>(null);
+  const editorRef = useRef<React.ComponentRef<typeof Editor>>(null);
   const { copyToClipboard, downloadDockerfile, validateDockerfile, getDockerfileStats } = useDockerfileActions();
   
   const validationWarnings = result ? validateDockerfile(result.dockerfile) : [];
