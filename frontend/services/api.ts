@@ -13,14 +13,15 @@ import type {
   InputType,
 } from '@/types/api';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+// Use relative path - Next.js rewrites will proxy to backend
+const API_BASE_URL = '/api/backend';
 
 class ApiService {
   private client: AxiosInstance;
 
   constructor() {
     this.client = axios.create({
-      baseURL: `${API_BASE_URL}/api/v1`,
+      baseURL: API_BASE_URL,
       headers: {
         'Content-Type': 'application/json',
       },
