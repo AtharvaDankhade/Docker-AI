@@ -13,7 +13,7 @@ RUN pip install --no-cache-dir uv
 COPY requirements.txt .
 
 # Install dependencies to virtual environment
-RUN uv venv /opt/venv && \
+RUN uv venv /opt/venv --seed && \
     /opt/venv/bin/pip install --no-cache-dir -r requirements.txt
 
 # ============================================================================
