@@ -14,6 +14,7 @@ interface UseDockerfileGeneratorReturn {
   // Actions
   generateFromGitHub: (input: GitHubInput, options?: GenerationOptions) => Promise<void>;
   generateFromZip: (file: File, options?: GenerationOptions) => Promise<void>;
+  generateFromZipInput: (input: ZipInput, options?: GenerationOptions) => Promise<void>;
   validateGitHub: (input: GitHubInput) => Promise<ValidationResult>;
   validateZip: (file: File) => Promise<ValidationResult>;
   clearResult: () => void;
@@ -129,6 +130,45 @@ export function useDockerfileGenerator(): UseDockerfileGeneratorReturn {
     }
   }, [updateProgress]);
 
+  const generateFromZipInput = useCallback(async (
+    input: ZipInput,
+    options?: GenerationOptions
+  ) => {
+    setLoading(true);
+    setError(null);
+    setProgress(0);
+    setStage('Validating archive...');
+    
+    abortControllerRef.current = new AbortController();
+
+    try {
+      // Validate
+      updateProgress(30, 'Validating archive...');
+      const validation = await api.validateZip(input);
+      if (!validation.valid) {
+        throw new Error(validation.error || 'Invalid archive');
+      }
+
+      // Generate
+      updateProgress(50, 'Analyzing project...');
+      const dockerfileResult = await api.analyzeZip(input, options || createDefaultOptions());
+      
+      updateProgress(90, 'Finalizing...');
+      setResult(dockerfileResult);
+      updateProgress(100, 'Complete!');
+    } catch (err) {
+      if (err instanceof Error && err.name === 'AbortError') {
+        return;
+      }
+      const message = err instanceof Error ? err.message : 'Failed to generate Dockerfile';
+      setError(message);
+      throw err;
+    } finally {
+      setLoading(false);
+      setTimeout(() => setProgress(0), 1000);
+    }
+  }, [updateProgress]);
+
   const validateGitHub = useCallback(async (input: GitHubInput) => {
     return api.validateGitHub(input);
   }, []);
@@ -147,6 +187,7 @@ export function useDockerfileGenerator(): UseDockerfileGeneratorReturn {
     stage,
     generateFromGitHub,
     generateFromZip,
+    generateFromZipInput,
     validateGitHub,
     validateZip,
     clearResult,

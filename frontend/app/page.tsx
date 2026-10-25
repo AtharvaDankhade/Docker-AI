@@ -24,7 +24,7 @@ export default function HomePage() {
     progress,
     stage,
     generateFromGitHub,
-    generateFromZip,
+    generateFromZipInput,
     clearResult,
     clearError,
   } = useDockerfileGenerator();
@@ -44,7 +44,7 @@ export default function HomePage() {
 
   const handleZipSubmit = useCallback(async (input: ZipInput) => {
     try {
-      await generateFromZip(input);
+      await generateFromZipInput(input);
       setShowResult(true);
       setTimeout(() => {
         document.getElementById('result-section')?.scrollIntoView({ behavior: 'smooth' });
@@ -52,7 +52,7 @@ export default function HomePage() {
     } catch (err) {
       // Error handled by hook
     }
-  }, [generateFromZip]);
+  }, [generateFromZipInput]);
 
   const handleNewGeneration = useCallback(() => {
     setResult(null);
